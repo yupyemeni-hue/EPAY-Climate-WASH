@@ -637,3 +637,72 @@ noticeStyle.textContent = `
 
 
 document.head.appendChild(noticeStyle);
+/* ============================================================
+   EPAY — Live Weather Provider Bootstrap
+   Version: 1.0.0
+
+   Purpose:
+   - Verify that the live weather connector loads correctly
+   - Test Open-Meteo connectivity
+   - Keep the test isolated from the main UI
+   - Do not fabricate or display data
+   ============================================================ */
+
+(function (window) {
+    "use strict";
+
+    function runWeatherProviderHealthCheck() {
+
+        if (
+            !window.EPAYWeather ||
+            typeof window.EPAYWeather.healthCheck !==
+                "function"
+        ) {
+            console.warn(
+                "[EPAY] Weather provider is not loaded."
+            );
+
+            return;
+        }
+
+        window.EPAYWeather
+            .healthCheck()
+            .then(function (result) {
+
+                if (result.online) {
+
+                    console.info(
+                        "[EPAY] Open-Meteo connection: ONLINE"
+                    );
+
+                    console.info(
+                        "[EPAY] Response time:",
+                        result.responseTimeMs,
+                        "ms"
+                    );
+
+                } else {
+
+                    console.warn(
+                        "[EPAY] Open-Meteo connection: OFFLINE",
+                        result
+                    );
+
+                }
+
+            })
+            .catch(function (error) {
+
+                console.error(
+                    "[EPAY] Weather health check failed:",
+                    error
+                );
+
+            });
+
+    }
+
+    window.EPAYRunWeatherHealthCheck =
+        runWeatherProviderHealthCheck;
+
+})(window);
