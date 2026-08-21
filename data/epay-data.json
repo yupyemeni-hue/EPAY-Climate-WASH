@@ -1,0 +1,189 @@
+{
+  "schema_version": "1.0.0",
+  "platform": {
+    "name": "EPAY",
+    "full_name": "Yemen Environmental Intelligence Platform",
+    "scope": "Yemen",
+    "mode": "prototype",
+    "data_policy": "transparent"
+  },
+
+  "system": {
+    "status": "operational",
+    "data_pipeline": "prototype",
+    "last_successful_update": null,
+    "update_frequency": "planned",
+    "timezone": "Asia/Aden"
+  },
+
+  "data_status_definitions": {
+    "LIVE": "Directly retrieved from an active verified data source.",
+    "NEAR_REAL_TIME": "Recently retrieved data with a short processing delay.",
+    "MODELLED": "Calculated by an EPAY analytical model using verified inputs.",
+    "ESTIMATED": "Estimated value derived from an identified methodology.",
+    "REFERENCE": "Published reference dataset not intended as a live observation.",
+    "DEMO": "Demonstration value used only to demonstrate platform functionality.",
+    "UNAVAILABLE": "No verified value is currently available."
+  },
+
+  "sources": [],
+
+  "national": {
+    "climate": {
+      "risk_index": {
+        "value": null,
+        "unit": "index",
+        "status": "UNAVAILABLE",
+        "source": null,
+        "updated_at": null,
+        "confidence": "Not Available"
+      },
+
+      "temperature_stress": {
+        "value": null,
+        "unit": "index",
+        "status": "UNAVAILABLE",
+        "source": null,
+        "updated_at": null,
+        "confidence": "Not Available"
+      },
+
+      "drought_risk": {
+        "value": null,
+        "unit": "index",
+        "status": "UNAVAILABLE",
+        "source": null,
+        "updated_at": null,
+        "confidence": "Not Available"
+      },
+
+      "flood_risk": {
+        "value": null,
+        "unit": "index",
+        "status": "UNAVAILABLE",
+        "source": null,
+        "updated_at": null,
+        "confidence": "Not Available"
+      },
+
+      "adaptation_readiness": {
+        "value": null,
+        "unit": "index",
+        "status": "UNAVAILABLE",
+        "source": null,
+        "updated_at": null,
+        "confidence": "Not Available"
+      }
+    },
+
+    "water": {
+      "water_stress": {
+        "value": null,
+        "unit": "index",
+        "status": "UNAVAILABLE",
+        "source": null,
+        "updated_at": null,
+        "confidence": "Not Available"
+      },
+
+      "water_availability": {
+        "value": null,
+        "unit": "index",
+        "status": "UNAVAILABLE",
+        "source": null,
+        "updated_at": null,
+        "confidence": "Not Available"
+      },
+
+      "water_quality": {
+        "value": null,
+        "unit": "index",
+        "status": "UNAVAILABLE",
+        "source": null,
+        "updated_at": null,
+        "confidence": "Not Available"
+      }
+    },
+
+    "wash": {
+      "priority_index": {
+        "value": null,
+        "unit": "index",
+        "status": "UNAVAILABLE",
+        "source": null,
+        "updated_at": null,
+        "confidence": "Not Available"
+      },
+
+      "water_access": {
+        "value": null,
+        "unit": "index",
+        "status": "UNAVAILABLE",
+        "source": null,
+        "updated_at": null,
+        "confidence": "Not Available"
+      },
+
+      "sanitation_vulnerability": {
+        "value": null,
+        "unit": "index",
+        "status": "UNAVAILABLE",
+        "source": null,
+        "updated_at": null,
+        "confidence": "Not Available"
+      },
+
+      "hygiene_vulnerability": {
+        "value": null,
+        "unit": "index",
+        "status": "UNAVAILABLE",
+        "source": null,
+        "updated_at": null,
+        "confidence": "Not Available"
+      }
+    }
+  },
+
+  "alerts": [],
+
+  "priority_areas": [],
+
+  "governorates": [],
+
+  "methodology": {
+    "risk_scale": {
+      "low": {
+        "min": 0,
+        "max": 24
+      },
+      "moderate": {
+        "min": 25,
+        "max": 49
+      },
+      "high": {
+        "min": 50,
+        "max": 74
+      },
+      "critical": {
+        "min": 75,
+        "max": 100
+      }
+    },
+
+    "confidence_levels": [
+      "High",
+      "Medium",
+      "Low",
+      "Not Available"
+    ],
+
+    "principles": [
+      "Do not present demonstration values as observations.",
+      "Every live indicator must identify its source.",
+      "Every calculated indicator must identify its methodology.",
+      "Missing data must remain missing and must not be converted to zero.",
+      "Risk scores must be explainable.",
+      "Data freshness must be visible to the user."
+    ]
+  }
+}
