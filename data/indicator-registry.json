@@ -1,0 +1,231 @@
+{
+  "schemaVersion": "1.0.0",
+  "registryName": "EPAY Environmental Indicator Registry",
+  "description": "Central definition of environmental, climate, water and WASH indicators used by EPAY.",
+  "lastRegistryUpdate": null,
+
+  "indicatorStatus": {
+    "LIVE": "Indicator currently calculated from connected live data.",
+    "VERIFIED": "Indicator definition has been verified but is not currently connected to a live source.",
+    "MODELLED": "Indicator is calculated by a model or analytical method.",
+    "DEMO": "Indicator is used for demonstration only.",
+    "UNAVAILABLE": "Required data is not currently available."
+  },
+
+  "indicators": [
+
+    {
+      "id": "rainfall",
+      "name": "Rainfall",
+      "nameAr": "هطول الأمطار",
+      "category": "climate",
+      "unit": "mm",
+      "sourceIds": [
+        "nasa-earth-observation",
+        "open-weather"
+      ],
+      "status": "VERIFIED",
+      "updateFrequency": "source_dependent",
+      "spatialCoverage": "Yemen",
+      "description": "Observed or modelled precipitation information used as a climate and hazard input.",
+      "calculationMethod": "Source-dependent precipitation value or derived precipitation statistic.",
+      "limitations": [
+        "Source availability varies.",
+        "Spatial and temporal resolution depends on the selected dataset.",
+        "A forecast value must not be represented as an observed value."
+      ]
+    },
+
+    {
+      "id": "temperature",
+      "name": "Temperature",
+      "nameAr": "درجة الحرارة",
+      "category": "climate",
+      "unit": "°C",
+      "sourceIds": [
+        "nasa-earth-observation",
+        "open-weather"
+      ],
+      "status": "VERIFIED",
+      "updateFrequency": "source_dependent",
+      "spatialCoverage": "Yemen",
+      "description": "Temperature information used for climate monitoring and environmental risk analysis.",
+      "calculationMethod": "Observed, forecast or derived temperature value depending on the source.",
+      "limitations": [
+        "Forecast and observed temperatures must be clearly distinguished.",
+        "Spatial resolution depends on the source."
+      ]
+    },
+
+    {
+      "id": "wind-speed",
+      "name": "Wind Speed",
+      "nameAr": "سرعة الرياح",
+      "category": "weather",
+      "unit": "m/s",
+      "sourceIds": [
+        "open-weather",
+        "windy"
+      ],
+      "status": "VERIFIED",
+      "updateFrequency": "source_dependent",
+      "spatialCoverage": "Yemen",
+      "description": "Wind speed used to provide weather and hazard context.",
+      "calculationMethod": "Source-provided wind speed.",
+      "limitations": [
+        "Forecast information is not equivalent to an official warning.",
+        "Local observations may differ from gridded or modelled values."
+      ]
+    },
+
+    {
+      "id": "water-stress",
+      "name": "Water Stress",
+      "nameAr": "الإجهاد المائي",
+      "category": "water",
+      "unit": "index",
+      "sourceIds": [
+        "yemen-official-data",
+        "nasa-earth-observation"
+      ],
+      "status": "UNAVAILABLE",
+      "updateFrequency": "to_be_defined",
+      "spatialCoverage": "Yemen",
+      "description": "Composite indicator intended to represent pressure on available water resources.",
+      "calculationMethod": "To be defined and validated using appropriate water-resource variables.",
+      "limitations": [
+        "No live national calculation is claimed at this stage.",
+        "The methodology requires validation with water-resource specialists.",
+        "A composite index must not be presented as a direct measurement."
+      ]
+    },
+
+    {
+      "id": "drought-risk",
+      "name": "Drought Risk",
+      "nameAr": "خطر الجفاف",
+      "category": "hazard",
+      "unit": "risk_score_0_100",
+      "sourceIds": [
+        "nasa-earth-observation",
+        "yemen-official-data"
+      ],
+      "status": "MODELLED",
+      "updateFrequency": "model_dependent",
+      "spatialCoverage": "Yemen",
+      "description": "Prototype risk indicator combining selected climate and water-stress signals.",
+      "calculationMethod": "Composite model to be validated before operational use.",
+      "limitations": [
+        "Prototype indicator.",
+        "Not an official drought declaration.",
+        "Model weights require validation.",
+        "Results must include uncertainty information."
+      ]
+    },
+
+    {
+      "id": "flood-risk",
+      "name": "Flood Risk",
+      "nameAr": "خطر الفيضانات والسيول",
+      "category": "hazard",
+      "unit": "risk_score_0_100",
+      "sourceIds": [
+        "open-weather",
+        "nasa-earth-observation",
+        "yemen-official-data"
+      ],
+      "status": "MODELLED",
+      "updateFrequency": "model_dependent",
+      "spatialCoverage": "Yemen",
+      "description": "Prototype indicator intended to estimate relative flood or flash-flood risk.",
+      "calculationMethod": "Prototype composite risk model using available precipitation, terrain, exposure and related variables.",
+      "limitations": [
+        "Prototype only.",
+        "Requires validation against historical and observed events.",
+        "Must not replace official warnings.",
+        "Local drainage and terrain information may be incomplete."
+      ]
+    },
+
+    {
+      "id": "air-quality",
+      "name": "Air Quality",
+      "nameAr": "جودة الهواء",
+      "category": "air_quality",
+      "unit": "AQI",
+      "sourceIds": [
+        "open-weather"
+      ],
+      "status": "VERIFIED",
+      "updateFrequency": "source_dependent",
+      "spatialCoverage": "source_dependent",
+      "description": "Air-quality indicator when a supported air-quality data source is connected.",
+      "calculationMethod": "Provider-defined air-quality index or pollutant-derived calculation.",
+      "limitations": [
+        "Coverage depends on available monitoring or modelled data.",
+        "Provider methodology must be documented."
+      ]
+    },
+
+    {
+      "id": "vegetation-health",
+      "name": "Vegetation Health",
+      "nameAr": "صحة الغطاء النباتي",
+      "category": "ecosystem",
+      "unit": "index",
+      "sourceIds": [
+        "nasa-earth-observation"
+      ],
+      "status": "VERIFIED",
+      "updateFrequency": "dataset_dependent",
+      "spatialCoverage": "Yemen",
+      "description": "Remote-sensing-derived indicator intended to support ecosystem and drought analysis.",
+      "calculationMethod": "Remote-sensing vegetation index or related derived metric.",
+      "limitations": [
+        "Exact index must be specified when a dataset is selected.",
+        "Cloud contamination and spatial resolution may affect results."
+      ]
+    },
+
+    {
+      "id": "wash-risk",
+      "name": "WASH Risk",
+      "nameAr": "مخاطر المياه والصرف الصحي والنظافة",
+      "category": "wash",
+      "unit": "risk_score_0_100",
+      "sourceIds": [
+        "yemen-official-data"
+      ],
+      "status": "UNAVAILABLE",
+      "updateFrequency": "to_be_defined",
+      "spatialCoverage": "Yemen",
+      "description": "Planned composite indicator for water, sanitation and hygiene vulnerability.",
+      "calculationMethod": "To be defined using validated WASH indicators.",
+      "limitations": [
+        "No national live WASH risk score is claimed.",
+        "Indicator selection requires consultation with WASH specialists.",
+        "Composite scoring requires validation."
+      ]
+    },
+
+    {
+      "id": "environmental-priority",
+      "name": "Environmental Priority Score",
+      "nameAr": "مؤشر الأولوية البيئية",
+      "category": "decision_support",
+      "unit": "priority_score_0_100",
+      "sourceIds": [],
+      "status": "MODELLED",
+      "updateFrequency": "model_dependent",
+      "spatialCoverage": "Yemen",
+      "description": "Prototype decision-support score intended to rank locations for further assessment or intervention.",
+      "calculationMethod": "Planned composite model combining hazard, exposure, vulnerability, consequence and data-confidence factors.",
+      "limitations": [
+        "Prototype methodology.",
+        "Weights must be validated with domain experts and users.",
+        "Priority score is a decision-support tool and not a legal or official classification."
+      ]
+    }
+
+  ]
+}
