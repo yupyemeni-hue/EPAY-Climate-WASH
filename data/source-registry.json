@@ -1,0 +1,127 @@
+{
+  "schemaVersion": "1.0.0",
+  "registryName": "EPAY Data Source Registry",
+  "description": "Central registry for environmental, climate, water, WASH, geographic and remote-sensing data sources used or planned for EPAY.",
+  "lastRegistryUpdate": null,
+
+  "sourceStatus": {
+    "LIVE": "Live data actively retrieved from the source.",
+    "VERIFIED": "Source has been verified but is not currently connected as a live feed.",
+    "MODELLED": "Value is produced by a model or analytical process.",
+    "DEMO": "Demonstration data only. Not suitable for real-world decisions.",
+    "UNAVAILABLE": "Source or data is currently unavailable."
+  },
+
+  "sources": [
+
+    {
+      "id": "nasa-earth-observation",
+      "name": "NASA Earth Observation Data",
+      "provider": "NASA",
+      "category": "remote_sensing",
+      "status": "VERIFIED",
+      "coverage": "Global",
+      "primaryUse": [
+        "environmental monitoring",
+        "climate analysis",
+        "land observation"
+      ],
+      "liveConnection": false,
+      "lastUpdated": null,
+      "licenseVerified": false,
+      "notes": "Potential source for satellite-derived environmental and climate indicators. Specific datasets must be documented individually before being classified as LIVE."
+    },
+
+    {
+      "id": "open-weather",
+      "name": "OpenWeather",
+      "provider": "OpenWeather",
+      "category": "weather",
+      "status": "VERIFIED",
+      "coverage": "Global",
+      "primaryUse": [
+        "weather conditions",
+        "temperature",
+        "precipitation",
+        "wind"
+      ],
+      "liveConnection": false,
+      "lastUpdated": null,
+      "licenseVerified": false,
+      "notes": "Potential weather data provider. API credentials and permitted usage must be configured before live classification."
+    },
+
+    {
+      "id": "windy",
+      "name": "Windy Weather Visualization",
+      "provider": "Windy",
+      "category": "weather_visualization",
+      "status": "VERIFIED",
+      "coverage": "Global",
+      "primaryUse": [
+        "weather visualization",
+        "wind visualization",
+        "forecast context"
+      ],
+      "liveConnection": false,
+      "lastUpdated": null,
+      "licenseVerified": false,
+      "notes": "Visualization/reference layer. It must not be represented as EPAY-owned meteorological data."
+    },
+
+    {
+      "id": "google-earth-engine",
+      "name": "Google Earth Engine",
+      "provider": "Google",
+      "category": "geospatial_processing",
+      "status": "VERIFIED",
+      "coverage": "Global",
+      "primaryUse": [
+        "remote sensing analysis",
+        "geospatial processing",
+        "environmental monitoring"
+      ],
+      "liveConnection": false,
+      "lastUpdated": null,
+      "licenseVerified": false,
+      "notes": "Processing and analysis platform. Individual datasets and usage permissions must be documented before production use."
+    },
+
+    {
+      "id": "open-geospatial-data",
+      "name": "Open Geospatial Data",
+      "provider": "Multiple Providers",
+      "category": "geospatial",
+      "status": "VERIFIED",
+      "coverage": "Variable",
+      "primaryUse": [
+        "mapping",
+        "administrative boundaries",
+        "geographic context"
+      ],
+      "liveConnection": false,
+      "lastUpdated": null,
+      "licenseVerified": false,
+      "notes": "Each dataset must be recorded separately when incorporated into EPAY."
+    },
+
+    {
+      "id": "yemen-official-data",
+      "name": "Yemen Official Environmental and Climate Data",
+      "provider": "Relevant Yemeni Authorities",
+      "category": "national_data",
+      "status": "UNAVAILABLE",
+      "coverage": "Yemen",
+      "primaryUse": [
+        "national environmental monitoring",
+        "official reporting",
+        "decision support"
+      ],
+      "liveConnection": false,
+      "lastUpdated": null,
+      "licenseVerified": false,
+      "notes": "No official live connection is claimed at this stage. Integration requires authorization and access from the relevant data-owning authority."
+    }
+
+  ]
+}
