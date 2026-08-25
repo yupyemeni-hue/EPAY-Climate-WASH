@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>EPAY Validation Test</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #f4f7f6;
+      color: #1d2b27;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .header h1 {
+      margin: 0 0 8px;
+      font-size: 25px;
+    }
+
+    .header p {
+      margin: 0;
+      color: #66736f;
+      line-height: 1.6;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .summary-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .summary-card strong {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+
+    .summary-card span {
+      color: #6b7773;
+      font-size: 13px;
+    }
+
+    .tests {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .test {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid #edf0ef;
+    }
+
+    .test:last-child {
+      border-bottom: none;
+    }
+
+    .icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .pass {
+      background: #e4f5ec;
+      color: #16834d;
+    }
+
+    .fail {
+      background: #fde8e8;
+      color: #c62828;
+    }
+
+    .test-name {
+      font-weight: 600;
+    }
+
+    .test-detail {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      color: #78847f;
+    }
+
+    .final-result {
+      margin-top: 20px;
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .success {
+      background: #e4f5ec;
+      color: #116b40;
+    }
+
+    .failure {
+      background: #fde8e8;
+      color: #a61b1b;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 30px;
+      color: #66736f;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 12px;
+      }
+
+      .summary {
+        grid-template-columns: 1fr;
+      }
+
+      .header h1 {
+        font-size: 21px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="header">
+      <h1>EPAY Environmental Intelligence</h1>
+      <p>
+        Data Validation Engine — System Diagnostic Test
+      </p>
+    </div>
+
+    <div id="loading" class="loading">
+      Running validation tests...
+    </div>
+
+    <div id="content" style="display:none;">
+
+      <div class="summary">
+
+        <div class="summary-card">
+          <strong id="total">0</strong>
+          <span>Total Tests</span>
+        </div>
+
+        <div class="summary-card">
+          <strong id="passed">0</strong>
+          <span>Passed</span>
+        </div>
+
+        <div class="summary-card">
+          <strong id="failed">0</strong>
+          <span>Failed</span>
+        </div>
+
+      </div>
+
+      <div class="tests" id="tests"></div>
+
+      <div id="finalResult" class="final-result"></div>
+
+    </div>
+
+  </div>
+
+  <!--
+    IMPORTANT:
+    validation-engine.js must be loaded first.
+  -->
+
+  <script src="../js/validation-engine.js"></script>
+
+  <script>
+
+    (function () {
+
+      "use strict";
+
+      const tests = [];
+      let passed = 0;
+      let failed = 0;
+
+      function addTest(name, success, detail) {
+
+        tests.push({
+          name: name,
+          success: success,
+          detail: detail || ""
+        });
+
+        if (success) {
+          passed++;
+        } else {
+          failed++;
+        }
+      }
+
+      function runTests() {
+
+        /*
+         * TEST 1
+         * Engine availability
+         */
+
+        const engineAvailable =
+          typeof window.EPAYValidation === "object";
+
+        addTest(
+          "Validation Engine Loaded",
+          engineAvailable,
+          engineAvailable
+            ? "EPAYValidation is available."
+            : "EPAYValidation was not loaded."
+        );
+
+        if (!engineAvailable) {
+          renderResults();
+          return;
+        }
+
+        const validator =
+          window.EPAYValidation;
+
+        /*
+         * TEST 2
+         * Valid temperature
+         */
+
+        const validTemperature = {
+          indicatorId: "temperature",
+          value: 27,
+          unit: "°C",
+          timestamp: new Date().toISOString(),
+          sourceId: "open-weather",
+          sourceName: "OpenWeather",
+          status: "VERIFIED",
+          maxAgeHours: 24
+        };
+
+        const result1 =
+          validator.validateRecord(
+            validTemperature
+          );
+
+        addTest(
+          "Valid Temperature",
+          result1.valid === true,
+          "Expected a valid temperature record to pass."
+        );
+
+        /*
+         * TEST 3
+         * Missing value
+         */
+
+        const missingValue = {
+          indicatorId: "temperature",
+          value: null,
+          unit: "°C",
+          timestamp: new Date().toISOString(),
+          sourceId: "open-weather",
+          sourceName: "OpenWeather",
+          status: "VERIFIED",
+          maxAgeHours: 24
+        };
+
+        const result2 =
+          validator.validateRecord(
+            missingValue
+          );
+
+        addTest(
+          "Missing Value Detection",
+          result2.valid === false,
+          "Missing indicator value should fail."
+        );
+
+        /*
+         * TEST 4
+         * Impossible temperature
+         */
+
+        const invalidTemperature = {
+          indicatorId: "temperature",
+          value: 500,
+          unit: "°C",
+          timestamp: new Date().toISOString(),
+          sourceId: "open-weather",
+          sourceName: "OpenWeather",
+          status: "LIVE",
+          maxAgeHours: 24
+        };
+
+        const result3 =
+          validator.validateRecord(
+            invalidTemperature
+          );
+
+        addTest(
+          "Invalid Temperature Detection",
+          result3.valid === false,
+          "Temperature outside the sanity range should fail."
+        );
+
+        /*
+         * TEST 5
+         * Missing source
+         */
+
+        const missingSource = {
+          indicatorId: "rainfall",
+          value: 20,
+          unit: "mm",
+          timestamp: new Date().toISOString(),
+          sourceId: "",
+          sourceName: "",
+          status: "LIVE",
+          maxAgeHours: 24
+        };
+
+        const result4 =
+          validator.validateRecord(
+            missingSource
+          );
+
+        addTest(
+          "Source Validation",
+          result4.warnings.length > 0,
+          "Missing source metadata should produce a warning."
+        );
+
+        /*
+         * TEST 6
+         * Unknown status
+         */
+
+        const unknownStatus = {
+          indicatorId: "rainfall",
+          value: 20,
+          unit: "mm",
+          timestamp: new Date().toISOString(),
+          sourceId: "open-weather",
+          sourceName: "OpenWeather",
+          status: "UNKNOWN_STATUS",
+          maxAgeHours: 24
+        };
+
+        const result5 =
+          validator.validateRecord(
+            unknownStatus
+          );
+
+        addTest(
+          "Status Validation",
+          result5.valid === false,
+          "Unknown status should fail validation."
+        );
+
+        /*
+         * TEST 7
+         * Modelled risk
+         */
+
+        const modelledRisk = {
+          indicatorId: "flood-risk",
+          value: 72,
+          unit: "risk_score_0_100",
+          timestamp: new Date().toISOString(),
+          sourceId: "open-weather",
+          sourceName: "OpenWeather",
+          status: "MODELLED",
+          maxAgeHours: 24
+        };
+
+        const result6 =
+          validator.validateRecord(
+            modelledRisk
+          );
+
+        addTest(
+          "Modelled Data Classification",
+          result6.valid === true &&
+          result6.status === "MODELLED",
+          "MODELLED must remain MODELLED."
+        );
+
+        /*
+         * TEST 8
+         * Batch validation
+         */
+
+        const batchResult =
+          validator.validateBatch([
+            validTemperature,
+            modelledRisk,
+            missingValue
+          ]);
+
+        addTest(
+          "Batch Validation",
+          batchResult.total === 3 &&
+          batchResult.validRecords === 2 &&
+          batchResult.invalidRecords === 1,
+          "Expected 2 valid and 1 invalid record."
+        );
+
+        renderResults();
+      }
+
+      function renderResults() {
+
+        document.getElementById(
+          "loading"
+        ).style.display = "none";
+
+        document.getElementById(
+          "content"
+        ).style.display = "block";
+
+        document.getElementById(
+          "total"
+        ).textContent = tests.length;
+
+        document.getElementById(
+          "passed"
+        ).textContent = passed;
+
+        document.getElementById(
+          "failed"
+        ).textContent = failed;
+
+        const testsContainer =
+          document.getElementById("tests");
+
+        testsContainer.innerHTML = "";
+
+        tests.forEach(function (test) {
+
+          const row =
+            document.createElement("div");
+
+          row.className = "test";
+
+          const icon =
+            document.createElement("div");
+
+          icon.className =
+            "icon " +
+            (test.success
+              ? "pass"
+              : "fail");
+
+          icon.textContent =
+            test.success
+              ? "✓"
+              : "✕";
+
+          const text =
+            document.createElement("div");
+
+          const name =
+            document.createElement("div");
+
+          name.className = "test-name";
+
+          name.textContent =
+            test.name;
+
+          const detail =
+            document.createElement("span");
+
+          detail.className =
+            "test-detail";
+
+          detail.textContent =
+            test.detail;
+
+          text.appendChild(name);
+          text.appendChild(detail);
+
+          row.appendChild(icon);
+          row.appendChild(text);
+
+          testsContainer.appendChild(row);
+
+        });
+
+        const finalResult =
+          document.getElementById(
+            "finalResult"
+          );
+
+        if (
+          tests.length > 0 &&
+          failed === 0
+        ) {
+
+          finalResult.className =
+            "final-result success";
+
+          finalResult.textContent =
+            "✓ ALL TESTS PASSED — EPAY Validation Engine is operational.";
+
+        } else {
+
+          finalResult.className =
+            "final-result failure";
+
+          finalResult.textContent =
+            "✕ TEST FAILURE — Do not proceed until the failed test is resolved.";
+
+        }
+      }
+
+      /*
+       * Start after page load.
+       */
+
+      window.addEventListener(
+        "load",
+        runTests
+      );
+
+    })();
+
+  </script>
+
+</body>
+</html>
