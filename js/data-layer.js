@@ -987,8 +987,51 @@
         hasError: function () {
             return state.error !== null;
         }
-    };
+    }    window.EPAYData = EPAYData;
 
-    window.EPAYData = EPAYData;
+    /* ------------------------------------------------------------
+       Automatic initialization
+       ------------------------------------------------------------ */
+
+    async function initializeEPAYDataLayer() {
+        try {
+            await EPAYData.loadData();
+
+            console.info(
+                "EPAY Data Layer: initialization successful."
+            );
+
+        } catch (error) {
+
+            console.error(
+                "EPAY Data Layer: initialization failed.",
+                error
+            );
+        }
+    }
+
+    /*
+     * Start only after the page environment is ready.
+     * The Data Layer remains responsible for loading and
+     * validating epay-data.json.
+     */
+
+    if (
+        document.readyState === "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            initializeEPAYDataLayer,
+            {
+                once: true
+            }
+        );
+
+    } else {
+
+        initializeEPAYDataLayer();
+
+    }
 
 })(window);
