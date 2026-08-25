@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "platform": {
+    "name": "EPAY",
+    "fullName": "Yemen Environmental Intelligence Platform",
+    "purpose": "Environmental, Climate, Water and WASH decision intelligence for Yemen",
+    "environment": "prototype"
+  },
+  "dataGovernance": {
+    "principles": [
+      "source_traceability",
+      "timestamp_visibility",
+      "data_status_transparency",
+      "uncertainty_disclosure",
+      "no_fabricated_live_data"
+    ],
+    "allowedStatuses": [
+      "LIVE",
+      "VERIFIED",
+      "MODELLED",
+      "DEMO",
+      "UNAVAILABLE"
+    ]
+  },
+  "sources": [],
+  "indicators": [],
+  "riskModels": [],
+  "lastSystemUpdate": null
+}
